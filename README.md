@@ -41,7 +41,8 @@ The ESP32 reads sensor values, publishes them as JSON messages over MQTT, and th
 ## Project Files
 
 - `esp32-code/sketch.ino` — ESP32 firmware
-- `esp32-code/live-dashboard.html` — Web dashboard
+- `dashboard/live-dashboard.html` — Web dashboard
+- `wokwi-circuit.png` — Circuit diagram
 
 ## How to Run
 
