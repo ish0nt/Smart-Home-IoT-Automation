@@ -61,3 +61,7 @@ The ESP32 reads sensor values, publishes them as JSON messages over MQTT, and th
 ## Author
 
 Created as an IoT mini-project.
+
+## Circuit Diagram
+
+![Smart Home IoT Circuit](wokwi-circuit.png)
