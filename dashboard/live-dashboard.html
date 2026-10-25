@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Home IoT Dashboard</title>
+<script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+<style>
+body{font-family:Arial;background:#eef4fa;color:#16324f;
+padding:30px;max-width:700px;margin:auto}
+.card{background:white;padding:20px;margin:12px 0;
+border-radius:12px;box-shadow:0 2px 8px #ccd5df}
+h1{color:#1465a8}
+</style>
+</head>
+<body>
+<h1>Smart Home Automation</h1>
+<div class="card">Connection: <b id="connection">Connecting...</b></div>
+<div class="card">Temperature: <b id="temp">Waiting...</b> °C</div>
+<div class="card">Humidity: <b id="humidity">Waiting...</b> %</div>
+<div class="card">Motion: <b id="motion">Waiting...</b></div>
+<div class="card">Light: <b id="light">Waiting...</b></div>
+<script>
+const topic="ishant-smart-home-demo-48271";
+const client=mqtt.connect("wss://broker.hivemq.com:8884/mqtt");
+client.on("connect",()=>{
+ document.getElementById("connection").textContent="Connected";
+ client.subscribe(topic);
+});
+client.on("reconnect",()=>document.getElementById("connection").textContent="Reconnecting");
+client.on("error",()=>document.getElementById("connection").textContent="Connection error");
+client.on("message",(t,p)=>{
+ try{
+  const d=JSON.parse(p.toString());
+  document.getElementById("temp").textContent=d.temperature;
+  document.getElementById("humidity").textContent=d.humidity;
+  document.getElementById("motion").textContent=d.motion?"Detected":"Not detected";
+  document.getElementById("light").textContent=d.light?"ON":"OFF";
+ }catch(e){}
+});
+</script>
+</body>
+</html>
